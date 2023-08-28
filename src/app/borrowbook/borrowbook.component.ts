@@ -30,7 +30,7 @@ export class BorrowbookComponent {
       const bookISBN = this.borrowForm.controls['isbn'].value;
       console.log(bookISBN);
       console.log(patronId);
-      console.log(patronId);
+
       if( this.patronService.borrowPatron(patronId)){
         if(this.bookService.borrowBook(bookISBN)){
           const reduceQuantity = this.bookService.reduceBookQuantity(bookISBN);
