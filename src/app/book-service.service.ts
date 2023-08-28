@@ -86,6 +86,22 @@ export class BookServiceService {
     this.availableBooksList.push(book);
     console.log(this.availableBooksList)
   }
+
+  borrowBook(isbn : number):boolean{
+    const bookCheck = this.availableBooksList.findIndex(book => book.isbn === isbn);
+    if (bookCheck !== -1 && this.availableBooksList[bookCheck].quantity > 0) {
+      return true;
+    } else {
+      alert(`patron with id ${isbn} does not exists`);
+      return false;
+    }
+  }
+
+  reduceBookQuantity(isbn : number){
+    const bookIndex = this.availableBooksList.findIndex(book => book.isbn === isbn);
+    this.availableBooksList[bookIndex].quantity--;
+    return true;
+  }
   constructor() {
 
    
