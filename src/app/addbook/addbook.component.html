@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+        <div class="form_bg">
+            <form [formGroup]="addBookForm" (ngSubmit)="addBook()">
+
+                <div class="form-group">
+                    <input type="number" formControlName="id" placeholder="Book Id">
+                    <span  *ngIf="addBookForm.controls['id'].hasError('required') && addBookForm.controls['id'].touched" class="error">Book id is required!</span>
+                </div>
+                <div class="form-group">
+                    <input type="number" formControlName="isbn" placeholder="Book ISBN number">
+                    <span  *ngIf="addBookForm.controls['isbn'].hasError('required') && addBookForm.controls['isbn'].touched" class="error">Book ISBN  required and MaxLength is 13 only!</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" formControlName="title" placeholder="Book Title">
+                    <span  *ngIf="addBookForm.controls['title'].hasError('required') && addBookForm.controls['title'].touched" class="error">Book title  required!</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" formControlName="author" placeholder="Book Author">
+                    <span  *ngIf="addBookForm.controls['author'].hasError('required') && addBookForm.controls['author'].touched" class="error">Book author  required!</span>
+                </div>
+                <div class="form-group">
+                    <input type="number" formControlName="quantity" placeholder="Book Quantity">
+                    <span  *ngIf="addBookForm.controls['quantity'].hasError('required') && addBookForm.controls['quantity'].touched" class="error">Book Quantity required!</span>
+                </div>
+                <br>
+                <div>
+                    <input type="submit" value="addBook" class="btn btn-primary" [disabled]="!addBookForm.valid">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

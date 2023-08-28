@@ -25,9 +25,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "C:/Users/User/Desktop/LMS/node_modules/bootstrap/dist/css/bootstrap.css"
             ],
-            "scripts": []
+            "scripts": ["./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"]
           },
           "configurations": {
             "production": {
@@ -87,12 +88,16 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "C:/Users/User/Desktop/LMS/node_modules/bootstrap/dist/css/bootstrap.css"
             ],
             "scripts": []
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

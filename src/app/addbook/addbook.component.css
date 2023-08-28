@@ -1,0 +1,15 @@
+
+.row{
+    margin: 5% 10%;
+}
+form div{
+    margin-bottom: 3%;
+}
+.error{
+    color: red;
+}
+.btn{
+    background-color:rgb(7, 73, 139) ;
+    color: white;
+    cursor: pointer;
+}
