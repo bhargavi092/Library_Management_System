@@ -9,9 +9,11 @@ import { AllPatrons } from '../all-patrons';
   <div class="search">
         <label>Search : </label> <input type="text" placeholder="Search Patron by id.." #filterpatron > 
         <button class=" btn btn-primary" type="button" (click)="filterResults(filterpatron.value)">Search</button>
+        <button class=" btn btn-primary" type="button" [routerLink]="['/addpatron']">Add Patron</button>
+
   </div>
   <div class="tableClass">
-    <table border="1" class="patrons-table">
+    <table  class="patrons-table">
       <tr><th>ID</th><th>Name</th><th>Borrowed Books ISBN numbers</th></tr>
       <tr *ngFor="let patron of filteredPatronList" >
       <td>{{patron.id}}</td><td>{{patron.pname}}</td><td>{{patron.borrowedBooks}}</td>

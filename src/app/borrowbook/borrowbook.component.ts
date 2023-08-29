@@ -3,6 +3,7 @@ import { FormControl, FormGroup, FormBuilder,NgForm,Validators } from '@angular/
 import { AllPatrons } from '../all-patrons';
 import { PatronService } from '../patron.service';
 import { BookServiceService } from '../book-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-borrowbook',
@@ -16,7 +17,7 @@ export class BorrowbookComponent {
   // borrowedBooks : string[]=[""];
 
 
-  constructor(private formBuilder : FormBuilder , private patronService : PatronService, private bookService : BookServiceService){
+  constructor(private formBuilder : FormBuilder , private patronService : PatronService, private bookService : BookServiceService , private router: Router){
     this.borrowForm = formBuilder.group({
       pid : ['',Validators.required],
       isbn : ['',Validators.required],
@@ -44,6 +45,7 @@ export class BorrowbookComponent {
         }
       }
       this.borrowForm.reset()
+      this.router.navigateByUrl('/');
     }
     
   }

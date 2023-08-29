@@ -1,6 +1,7 @@
 import { Component , ViewEncapsulation} from '@angular/core';
 import { FormControl, FormGroup, FormBuilder,NgForm,Validators } from '@angular/forms';
 import { BookServiceService } from '../book-service.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class AddbookComponent {
     quantity : number=0;
 
 
-    constructor(private formBuilder : FormBuilder , private bookService : BookServiceService){
+    constructor(private formBuilder : FormBuilder , private bookService : BookServiceService, private router:Router){
       this.addBookForm = formBuilder.group({
         id : ['',Validators.required],
         isbn : ['',[Validators.required,Validators.maxLength(13)]],
@@ -34,6 +35,8 @@ export class AddbookComponent {
         const newBook = this.addBookForm.value;
         this.bookService.addBook(newBook)
         this.addBookForm.reset()
+        alert("Book added successfully")
+        this.router.navigateByUrl('/');
       }
       
     }

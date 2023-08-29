@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder,NgForm,Validators } from '@angular/forms';
 import { AllPatrons } from '../all-patrons';
 import { PatronService } from '../patron.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-addpatron',
@@ -16,7 +17,7 @@ export class AddpatronComponent {
   quantity : number=0;
 
 
-  constructor(private formBuilder : FormBuilder , private patronService : PatronService){
+  constructor(private formBuilder : FormBuilder , private patronService : PatronService, private router : Router){
     this.addPatronForm = formBuilder.group({
       id : ['',Validators.required],
       pname : ['',Validators.required],
@@ -29,8 +30,9 @@ export class AddpatronComponent {
       const newPatron = this.addPatronForm.value;
       this.patronService.addPatron(newPatron)
       this.addPatronForm.reset()
+      alert("Patron added Successfully")
     }
-    
+    this.router.navigateByUrl('/viewpatron')
   }
 }
 

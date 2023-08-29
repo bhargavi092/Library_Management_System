@@ -13,3 +13,7 @@ form div{
     color: white;
     cursor: pointer;
 }
+.form_bg h4{
+    color: rgb(7, 73, 139) ;
+    margin-bottom: 4%;
+}

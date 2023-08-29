@@ -12,6 +12,7 @@ import { ReturnbookComponent } from './returnbook/returnbook.component';
 import { BookServiceService } from './book-service.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PatronService } from './patron.service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { PatronService } from './patron.service';
     AddpatronComponent,
     BorrowbookComponent,
     ReturnbookComponent,
+    LoginComponent,
 
   ],
   imports: [

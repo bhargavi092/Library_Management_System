@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BookServiceService } from '../book-service.service';
 import { AvailableBooks } from '../available-books';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-viewbooks',
@@ -9,10 +10,12 @@ import { AvailableBooks } from '../available-books';
     <div class="search">
           <label>Search : </label> <input type="text" placeholder="Search Book by name.." #filterbook>
           <button class=" btn btn-primary" type="button" (click)="filterResults(filterbook.value)">Search</button>
-
+          <button class=" btn btn-primary" type="button" [routerLink]="['/addbook']">Add Book</button>
+          <button class=" btn btn-primary" type="button" [routerLink]="['/borrowbook']">Borrow Book</button>
+          <button class=" btn btn-primary" type="button" [routerLink]="['/returnbook']">Return Book</button>
     </div>
     <div class="tableClass">
-      <table border="1" class="books-table">
+      <table  class="books-table">
         <tr><th>S.ID</th><th>ISBN</th><th>Title</th><th>Author</th><th>Quantity</th></tr>
         <tr *ngFor="let book of filteredBookList" >
         <td>{{book.id}}</td><td>{{book.isbn}}</td><td>{{book.title}}</td><td>{{book.author}}</td><td>{{book.quantity}}</td>

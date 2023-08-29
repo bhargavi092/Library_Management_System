@@ -1,19 +1,22 @@
 <div class="container">
     <div class="row">
         <div class="form_bg">
+            <h4>Add Patron</h4>
             <form [formGroup]="addPatronForm" (ngSubmit)="addPatron()">
 
                 <div class="form-group">
-                    <input type="number" formControlName="id" placeholder="addPatron Id">
+                    <!-- <label>Patron Id : </label> -->
+                    <input type="number" formControlName="id" placeholder="Id">
                     <span  *ngIf="addPatronForm.controls['id'].hasError('required') && addPatronForm.controls['id'].touched" class="error">addPatronid is required!</span>
                 </div>
                 <div class="form-group">
-                    <input type="text" formControlName="pname" placeholder="Patron Name">
+                    <!-- <label>Patron Name : </label> -->
+                    <input type="text" formControlName="pname" placeholder="Name">
                     <span  *ngIf="addPatronForm.controls['pname'].hasError('required') && addPatronForm.controls['pname'].touched" class="error">Patron Name  required!</span>
                 </div>
                 <br>
                 <div>
-                    <input type="submit" value="addPatron" class="btn btn-primary" [disabled]="!addPatronForm.valid">
+                    <input type="submit" value="Add Patron" class="btn btn-primary" [disabled]="!addPatronForm.valid">
                 </div>
             </form>
         </div>

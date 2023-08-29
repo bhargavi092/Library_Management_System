@@ -10,18 +10,25 @@ main{
     padding: 0% 5%;
     height: 15%;
 }
-
+.toggler{
+    cursor: pointer;
+}
 .b-container{
     display: flex;
     flex-direction: row;
     height: 85%;
     width: 100%;
 }
-.side-nav{
+.side-nav.open{
     background-color: rgb(7, 73, 139);
     height: 100%;
     width: 10%;
     padding: 0% 3%;
+}
+.side-nav.close{
+    
+    width: 0%;
+    
 }
 .side-nav a{
     color: white;
