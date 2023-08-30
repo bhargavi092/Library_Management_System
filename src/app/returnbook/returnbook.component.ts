@@ -56,7 +56,7 @@ export class ReturnbookComponent {
       }
       this.returnForm.reset()
     }
-    this.router.navigateByUrl('/');
+    this.router.navigate(['/viewbook'], {queryParams: { userType:this.userType, username : this.username }})
   }
 
   toggleLogoutDropdown() {

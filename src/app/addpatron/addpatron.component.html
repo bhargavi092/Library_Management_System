@@ -35,8 +35,14 @@
                         <div>
                             <input type="submit" value="Add Patron" class="btn btn-primary" [disabled]="!addPatronForm.valid">
                         </div>
+                        <div>
+                          <button class="btn btn-primary" [routerLink]="['/viewbook']" [queryParams]="{ userType: userType ,username:username }">View Books</button>
+                        </div>
                     </form>
                 </div>
+            </div>
+            <div class="img">
+              <img src="/assets/book.jpg">
             </div>
         </div>
       </div>

@@ -7,7 +7,7 @@
             <div class="container-header">Log in</div>
             <div class="login-buttons">
                 <button type="button" class="btn btn-primary " [routerLink]="['/']" >Librarian</button>
-                <button type="button" class="btn btn-primary" [routerLink]="['/patronlogin']">Patron</button>
+                <button type="button" class="btn btn-primary p" [routerLink]="['/patronlogin']">Patron</button>
             </div>
             <div class="formDiv">
                 <form [formGroup]="loginForm" (ngSubmit)="login()">

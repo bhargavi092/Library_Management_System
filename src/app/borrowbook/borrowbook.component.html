@@ -37,8 +37,14 @@
                         <div>
                             <input type="submit" value="Borrow Book" class="btn btn-primary" [disabled]="!borrowForm.valid">
                         </div>
+                        <div>
+                          <button class="btn btn-primary" [routerLink]="['/viewbook']" [queryParams]="{ userType: userType ,username:username }">View Books</button>
+                        </div>
                     </form>
                 </div>
+            </div>
+            <div class="img">
+              <img src="/assets/book.jpg">
             </div>
         </div>
         

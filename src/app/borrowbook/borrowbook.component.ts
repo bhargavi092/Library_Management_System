@@ -53,7 +53,7 @@ export class BorrowbookComponent {
         }
       }
       this.borrowForm.reset()
-      this.router.navigateByUrl('/');
+      this.router.navigate(['/viewbook'], {queryParams: { userType:this.userType, username : this.username }})
     }
     
   }

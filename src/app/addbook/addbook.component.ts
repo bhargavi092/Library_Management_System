@@ -43,7 +43,9 @@ export class AddbookComponent {
         this.bookService.addBook(newBook)
         this.addBookForm.reset()
         alert("Book added successfully")
-        this.router.navigateByUrl('/viewbook');
+        // this.router.navigateByUrl('/viewbook');
+        this.router.navigate(['/viewbook'], {queryParams: { userType:this.userType, username : this.username }})
+
       }
       
     }
@@ -61,8 +63,6 @@ export class AddbookComponent {
         console.log(this.paramsObject);
         this.userType = this.paramsObject.userType;
         this.username = this.paramsObject.username;
-    
-  
       });
     }
   

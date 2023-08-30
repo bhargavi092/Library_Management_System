@@ -39,7 +39,8 @@ export class AddpatronComponent {
       this.addPatronForm.reset()
       alert("Patron added Successfully")
     }
-    this.router.navigateByUrl('/viewpatron')
+    this.router.navigate(['/viewbook'], {queryParams: { userType:this.userType, username : this.username }})
+
   }
 
   toggleLogoutDropdown() {

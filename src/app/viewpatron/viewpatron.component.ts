@@ -82,15 +82,6 @@ export class ViewpatronComponent implements OnInit{
   }
 
   // ngOnInit(): void {
-    
-  //   this.route.queryParamMap
-  //     .subscribe((params) => {
-  //       this.paramsObject = { ...params.keys, ...params };
-  //       console.log(this.paramsObject);
-  //     }
-  //   );
-
-
     // this.route.queryParams.subscribe(params => {
     //   console.log(params);
     //   this.userType = params['userType'];
@@ -108,7 +99,6 @@ export class ViewpatronComponent implements OnInit{
       this.userType = this.paramsObject.userType;
       this.username = this.paramsObject.username;
       
-
     });
   }
 
