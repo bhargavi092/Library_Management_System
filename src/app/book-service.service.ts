@@ -60,8 +60,13 @@ export class BookServiceService {
   ]
 
   addBook(book : AvailableBooks){
+    const nextId = this.availableBooksList.length;
+    const newBook: AvailableBooks = {
+      ...book,
+      id: nextId + 1
+    };
     console.log(book);
-    this.availableBooksList.push(book);
+    this.availableBooksList.push(newBook);
     console.log(this.availableBooksList)
   }
 

@@ -25,8 +25,13 @@ export class PatronService {
 
 
   addPatron(patron : AllPatrons){
+    const nextId = this.patronList.length;
+    const newPatron: AllPatrons = {
+      ...patron,
+      id: nextId + 1
+    };
     console.log(patron);
-    this.patronList.push(patron);
+    this.patronList.push(newPatron);
     console.log(this.patronList)
   }
 

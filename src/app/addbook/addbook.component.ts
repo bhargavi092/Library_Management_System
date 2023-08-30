@@ -1,7 +1,7 @@
 import { Component , ViewEncapsulation} from '@angular/core';
 import { FormControl, FormGroup, FormBuilder,NgForm,Validators } from '@angular/forms';
 import { BookServiceService } from '../book-service.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -11,17 +11,24 @@ import { Router } from '@angular/router';
   // encapsulation: ViewEncapsulation.None
 })
 export class AddbookComponent {
+
+    toggleSideNav = true;
+    showLogoutDropdown = false;
+    userType: string ='';
+    username: string = '';
+    paramsObject : any;
+
     addBookForm : FormGroup;
-    id : number=0;
+    // id : number=0;
     isbn : number=0;
     title : string ="";
     author : string="";
     quantity : number=0;
 
 
-    constructor(private formBuilder : FormBuilder , private bookService : BookServiceService, private router:Router){
+    constructor(private formBuilder : FormBuilder , private bookService : BookServiceService, private router:Router,private route: ActivatedRoute){
       this.addBookForm = formBuilder.group({
-        id : ['',Validators.required],
+        // id : ['',Validators.required],
         isbn : ['',[Validators.required,Validators.maxLength(13)]],
         title : ['',Validators.required],
         author: ['',Validators.required],
@@ -36,8 +43,31 @@ export class AddbookComponent {
         this.bookService.addBook(newBook)
         this.addBookForm.reset()
         alert("Book added successfully")
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/viewbook');
       }
       
+    }
+
+    toggleLogoutDropdown() {
+      this.showLogoutDropdown = !this.showLogoutDropdown;
+    }
+
+    ngOnInit(): void {
+      this.route.queryParamMap.subscribe((params) => {
+        this.paramsObject = {};
+        params.keys.forEach(key => {
+          this.paramsObject[key] = params.get(key);
+        });
+        console.log(this.paramsObject);
+        this.userType = this.paramsObject.userType;
+        this.username = this.paramsObject.username;
+    
+  
+      });
+    }
+  
+    logout() {
+      localStorage.removeItem(this.userType)
+      this.router.navigateByUrl('/');
     }
 }

@@ -1,46 +1,109 @@
-import { Component } from '@angular/core';
+import { Component , OnInit} from '@angular/core';
 import { BookServiceService } from '../book-service.service';
 import { AvailableBooks } from '../available-books';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-viewbooks',
-  template: `<div class="viewbooks-container">
-    <div class="viewbooks-heading"><h3>Available Books</h3></div>
-    <div class="search">
-          <label>Search : </label> <input type="text" placeholder="Search Book by name.." #filterbook>
-          <button class=" btn btn-primary" type="button" (click)="filterResults(filterbook.value)">Search</button>
-          <button class=" btn btn-primary" type="button" [routerLink]="['/addbook']">Add Book</button>
-          <button class=" btn btn-primary" type="button" [routerLink]="['/borrowbook']">Borrow Book</button>
-          <button class=" btn btn-primary" type="button" [routerLink]="['/returnbook']">Return Book</button>
+  template: `<main>
+   
+  <nav class="navBar">
+    <div class="toggler" (click)="toggleSideNav = !toggleSideNav"><h3>&#9776;</h3></div>
+    
+      <h2 >Library Management System</h2>
+    
+    <div class="user">
+      <span>{{username}}</span><i class='fa fa-user-circle userIcon' (click)="toggleLogoutDropdown()"></i>
+      <div class="logout-dropdown" *ngIf="showLogoutDropdown">
+        <a (click)="logout()">Logout</a>
+      </div>
     </div>
-    <div class="tableClass">
-      <table  class="books-table">
-        <tr><th>S.ID</th><th>ISBN</th><th>Title</th><th>Author</th><th>Quantity</th></tr>
-        <tr *ngFor="let book of filteredBookList" >
-        <td>{{book.id}}</td><td>{{book.isbn}}</td><td>{{book.title}}</td><td>{{book.author}}</td><td>{{book.quantity}}</td>
-        </tr>
-      </table>
+  </nav>
+  <div class="b-container">
+    <div class="side-nav" [class.open]="toggleSideNav">
+      <a [routerLink]="['/viewbook']" [queryParams]="{ userType: userType ,username:username }"> Books</a>
+      <a [routerLink]="['/viewpatron']" [queryParams]="{ userType: userType , username:username}"> Patrons</a>
+      
     </div>
-</div>`,
+    <div class="content">
+        <div class="viewbooks-container">
+        <div class="viewbooks-heading"><h3>Available Books</h3></div>
+        <div class="search">
+              <label>Search : </label> <input type="text" placeholder="Book by name.." #filterbook>
+              <button class=" btn btn-primary" type="button" (click)="filterResults(filterbook.value)">Search</button>
+              <button class=" btn btn-primary" type="button" [routerLink]="['/addbook']" [queryParams]="{ userType: userType ,username:username }" *ngIf="isAddButtonDisplay()" >Add Book</button>
+              <button class=" btn btn-primary" type="button" [routerLink]="['/borrowbook']" [queryParams]="{ userType: userType ,username:username }">Borrow Book</button>
+              <button class=" btn btn-primary" type="button" [routerLink]="['/returnbook']" [queryParams]="{ userType: userType ,username:username }">Return Book</button>
+        </div>
+        <div class="tableClass">
+          <table  class="books-table">
+            <tr><th>S.No</th><th>ISBN</th><th>Title</th><th>Author</th><th>Quantity</th></tr>
+            <tr *ngFor="let book of filteredBookList" >
+            <td>{{book.id}}</td><td>{{book.isbn}}</td><td>{{book.title}}</td><td>{{book.author}}</td><td>{{book.quantity}}</td>
+            </tr>
+          </table>
+        </div>
+</div>
+    </div>
+  </div>
+  </main>`,
   styleUrls: ['./viewbooks.component.css']
 })
-export class ViewbooksComponent {
+export class ViewbooksComponent implements OnInit {
+  toggleSideNav = true;
+  showLogoutDropdown = false;
+  userType: string ='';
+  username: string = '';
+  paramsObject : any;
 
-  availableBooksList : AvailableBooks[];
-  filteredBookList : AvailableBooks[] =[];
+  availableBooksList: AvailableBooks[];
+  filteredBookList: AvailableBooks[] = [];
 
-  constructor(private _bookService : BookServiceService){
+  constructor(private _bookService: BookServiceService,private router: Router,private route: ActivatedRoute) {
     this.availableBooksList = this._bookService.availableBooksList;
     this.filteredBookList = this._bookService.availableBooksList;
   }
 
   filterResults(filterValue: string) {
     if (!filterValue) {
-      this.filteredBookList = this.availableBooksList; 
-    } 
-    else{
-        this.filteredBookList = this.availableBooksList.filter(  book => book.title?.toLowerCase().includes( filterValue.toLowerCase()))
+      this.filteredBookList = this.availableBooksList;
     }
+    else {
+      this.filteredBookList = this.availableBooksList.filter(book => book.title?.toLowerCase().includes(filterValue.toLowerCase()))
+    }
+  }
+
+  toggleLogoutDropdown() {
+    this.showLogoutDropdown = !this.showLogoutDropdown;
+  }
+
+  // ngOnInit(): void {
+
+  //   this.route.queryParams.subscribe(params => {
+  //     this.userType = params['userType'];
+  //   });
+  // }
+
+  ngOnInit(): void {
+    this.route.queryParamMap.subscribe((params) => {
+      this.paramsObject = {};
+      params.keys.forEach(key => {
+        this.paramsObject[key] = params.get(key);
+      });
+      console.log(this.paramsObject);
+      this.userType = this.paramsObject.userType;
+      this.username = this.paramsObject.username;
+  
+
+    });
+  }
+
+  isAddButtonDisplay(): boolean {
+    return this.userType === 'librarian';
+  }
+
+  logout() {
+    localStorage.removeItem(this.userType)
+    this.router.navigateByUrl('/');
   }
 }

@@ -6,10 +6,19 @@ import { AddpatronComponent } from './addpatron/addpatron.component';
 import { BorrowbookComponent } from './borrowbook/borrowbook.component';
 import { ReturnbookComponent } from './returnbook/returnbook.component';
 import { ViewpatronComponent } from './viewpatron/viewpatron.component';
+import { LoginComponent } from './login/login.component';
+import { PatronloginComponent } from './patronlogin/patronlogin.component';
 
 const routes: Routes = [
+ 
   {
-    path:'', component:ViewbooksComponent
+    path:'', component:LoginComponent
+  },
+  {
+    path:'viewbook', component:ViewbooksComponent
+  },
+  {
+    path:'patronlogin', component:PatronloginComponent
   },
   {
     path:'addbook', component:AddbookComponent

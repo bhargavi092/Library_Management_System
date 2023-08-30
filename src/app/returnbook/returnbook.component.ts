@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder,NgForm,Validators } from '@angular/forms';
 import { PatronService } from '../patron.service';
 import { BookServiceService } from '../book-service.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-returnbook',
@@ -10,13 +10,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./returnbook.component.css']
 })
 export class ReturnbookComponent {
+
+  toggleSideNav = true;
+  showLogoutDropdown = false;
   returnForm : FormGroup;
   pid : number=0;
   isbn : string ="";
+
+  userType: string ='';
+  username: string = '';
+  paramsObject : any;
   // borrowedBooks : string[]=[""];
 
 
-  constructor(private formBuilder : FormBuilder , private patronService : PatronService, private bookService : BookServiceService, private router: Router){
+  constructor(private formBuilder : FormBuilder , private patronService : PatronService, private bookService : BookServiceService, private router: Router,private route: ActivatedRoute){
     this.returnForm = formBuilder.group({
       pid : ['',Validators.required],
       isbn : ['',Validators.required],
@@ -49,6 +56,29 @@ export class ReturnbookComponent {
       }
       this.returnForm.reset()
     }
+    this.router.navigateByUrl('/');
+  }
+
+  toggleLogoutDropdown() {
+    this.showLogoutDropdown = !this.showLogoutDropdown;
+  }
+
+  ngOnInit(): void {
+    this.route.queryParamMap.subscribe((params) => {
+      this.paramsObject = {};
+      params.keys.forEach(key => {
+        this.paramsObject[key] = params.get(key);
+      });
+      console.log(this.paramsObject);
+      this.userType = this.paramsObject.userType;
+      this.username = this.paramsObject.username;
+  
+
+    });
+  }
+
+  logout() {
+    localStorage.removeItem(this.userType)
     this.router.navigateByUrl('/');
   }
 }
