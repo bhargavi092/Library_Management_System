@@ -32,7 +32,7 @@ export class AppComponent {
     }
     else if(this.patronData!== null){
       this.patronObject = JSON.parse(this.patronData)
-      console.log(this.librarianObject.username)
+      console.log(this.patronObject.username)
       this.router.navigate(['/viewbook'], {queryParams: { userType:'patron' , username:this.patronObject.username}})
     }
   }
