@@ -30,10 +30,13 @@ import { ActivatedRoute, Router } from '@angular/router';
   <div class="viewpatrons-container">
   <div class="viewpatrons-heading"><h3>All Patrons</h3></div>
   <div class="search">
-        <label>Search : </label> <input type="text" placeholder="Patron by id.." #filterpatron > 
+    <div class="searchField">
+        <label>Search : </label> <input type="text" placeholder="Patron by id.." #filterpatron >
+    </div> 
+    <div class="btns">
         <button class=" btn btn-primary" type="button" (click)="filterResults(filterpatron.value)">Search</button>
         <button class=" btn btn-primary" type="button" [routerLink]="['/addpatron']" [queryParams]="{ userType: userType ,username:username }" *ngIf="isAddPatronDisplay()" >Add Patron</button>
-
+    </div>
   </div>
   <div class="tableClass">
     <table  class="patrons-table">

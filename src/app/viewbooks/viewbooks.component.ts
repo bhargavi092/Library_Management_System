@@ -29,11 +29,15 @@ import { ActivatedRoute, Router } from '@angular/router';
         <div class="viewbooks-container">
         <div class="viewbooks-heading"><h3>Available Books</h3></div>
         <div class="search">
-              <label>Search : </label> <input type="text" placeholder="Book by name.." #filterbook>
+            <div class="searchField">
+              <label>Search: </label> <input type="text" placeholder="Book by name.." #filterbook>
+            </div>
+            <div class="btns">
               <button class=" btn btn-primary" type="button" (click)="filterResults(filterbook.value)">Search</button>
               <button class=" btn btn-primary" type="button" [routerLink]="['/addbook']" [queryParams]="{ userType: userType ,username:username }" *ngIf="isAddButtonDisplay()" >Add Book</button>
               <button class=" btn btn-primary" type="button" [routerLink]="['/borrowbook']" [queryParams]="{ userType: userType ,username:username }">Borrow Book</button>
               <button class=" btn btn-primary" type="button" [routerLink]="['/returnbook']" [queryParams]="{ userType: userType ,username:username }">Return Book</button>
+            </div>
         </div>
         <div class="tableClass">
           <table  class="books-table">

@@ -22,6 +22,9 @@ export class AppComponent {
     console.log(this.librarianData)
     console.log(this.patronData)
 
+    // localStorage.clear()
+
+
     if(this.librarianData === null && this.patronData === null){
         this.router.navigateByUrl('/')
     }
@@ -30,11 +33,12 @@ export class AppComponent {
       console.log(this.librarianObject.username)
       this.router.navigate(['/viewbook'], {queryParams: { userType:'librarian' , username:this.librarianObject.username}})
     }
-    else if(this.patronData!== null){
+    else if(this.patronData!= null){
       this.patronObject = JSON.parse(this.patronData)
-      console.log(this.librarianObject.username)
+      console.log(this.patronObject.username)
       this.router.navigate(['/viewbook'], {queryParams: { userType:'patron' , username:this.patronObject.username}})
     }
+  
   }
   
   

@@ -1,8 +1,13 @@
-
+.container{
+    display: flex;
+    width: 100%;
+}
 .row{
-    /* border:  1px solid green; */
-    margin: 5% ;
-    width: 50%;
+    margin: 5% 0% ; 
+    width: 100%;
+}
+.img{
+    margin: 5% 0%;
 }
 
 form div{
@@ -20,10 +25,8 @@ form div{
     color: rgb(7, 73, 139) ;
     margin-bottom: 4%;
 }
-.container{
-    display: flex;
-    /* border: 1px solid yellowgreen; */
-}
-.img{
-    margin-top: 10%;
+@media screen and (max-width:650px) {
+    .img{
+       display: none;
+    }
 }
