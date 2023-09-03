@@ -33,11 +33,11 @@ export class AddpatronComponent {
 
   addPatron(){
     if(this.addPatronForm.valid){
-      console.log(this.addPatronForm.value);
-      const newPatron = this.addPatronForm.value;
-      this.patronService.addPatron(newPatron)
-      this.addPatronForm.reset()
-      alert("Patron added Successfully")
+      // console.log(this.addPatronForm.value);
+      // const newPatron = this.addPatronForm.value;
+      // this.patronService.addPatron(newPatron)
+      // this.addPatronForm.reset()
+      // alert("Patron added Successfully")
     }
     this.router.navigate(['/viewbook'], {queryParams: { userType:this.userType, username : this.username }})
 

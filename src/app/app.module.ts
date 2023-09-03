@@ -15,6 +15,7 @@ import { PatronService } from './patron.service';
 import { LoginComponent } from './login/login.component';
 import { PatronloginComponent } from './patronlogin/patronlogin.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { PatronRegistrationComponent } from './patron-registration/patron-registration.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { RegistrationComponent } from './registration/registration.component';
     LoginComponent,
     PatronloginComponent,
     RegistrationComponent,
+    PatronRegistrationComponent,
 
   ],
   imports: [

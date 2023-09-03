@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PatronService } from '../patron.service';
+// import { PatronService } from '../patron.service';
 import { AllPatrons } from '../all-patrons';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -35,14 +35,14 @@ import { ActivatedRoute, Router } from '@angular/router';
     </div> 
     <div class="btns">
         <button class=" btn btn-primary" type="button" (click)="filterResults(filterpatron.value)">Search</button>
-        <button class=" btn btn-primary" type="button" [routerLink]="['/addpatron']" [queryParams]="{ userType: userType ,username:username }" *ngIf="isAddPatronDisplay()" >Add Patron</button>
+        <button class=" btn btn-primary" type="button" [routerLink]="['/patron-registration']" [queryParams]="{ userType: userType ,username:username }" *ngIf="isAddPatronDisplay()" >Add Patron</button>
     </div>
   </div>
   <div class="tableClass">
     <table  class="patrons-table">
       <tr><th>ID</th><th>Name</th><th>Borrowed Books ISBN numbers</th></tr>
       <tr *ngFor="let patron of filteredPatronList" >
-      <td>{{patron.id}}</td><td>{{patron.pname}}</td><td>{{patron.borrowedBooks}}</td>
+      <td>{{patron.id}}</td><td>{{patron.username}}</td><td>{{patron.borrowedBooks}}</td>
       </tr>
     </table>
   </div>
@@ -64,9 +64,15 @@ export class ViewpatronComponent implements OnInit{
 
   patronList : AllPatrons[];
   filteredPatronList : AllPatrons[] =[];
-  constructor(private _patronService : PatronService , private router: Router,private route: ActivatedRoute){
-    this.patronList = this._patronService.patronList;
-    this.filteredPatronList = this._patronService.patronList;
+  constructor( private router: Router,private route: ActivatedRoute){
+
+    const patronString = localStorage.getItem('PatronRegistrationData');
+      const existingPatrons = patronString ? JSON.parse(patronString) : [];
+      this.patronList = existingPatrons;
+
+    console.log(this.patronList)
+    // this.patronList = this._patronService.patronList;
+    this.filteredPatronList = this.patronList;
 
   }
 

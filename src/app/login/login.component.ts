@@ -43,7 +43,7 @@ export class LoginComponent {
         const existingUsersData = registeredUsersString ? JSON.parse(registeredUsersString) : [];
 
         const checkUser = existingUsersData.find((user : User) => {
-          return user.username === data.username && user.password === data.password && user.usertype === 'librarian';
+          return user.username === data.username && user.password === data.password ;
         });
         if(checkUser){
             console.log(this.loginForm.value.username)

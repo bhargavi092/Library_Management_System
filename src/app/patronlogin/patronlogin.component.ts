@@ -36,11 +36,11 @@ export class PatronloginComponent {
           password: this.loginForm.value.password
         };
       
-        const registeredUsersString = localStorage.getItem('registrationData');
+        const registeredUsersString = localStorage.getItem('PatronRegistrationData');
         const existingUsersData = registeredUsersString ? JSON.parse(registeredUsersString) : [];
 
         const checkUser = existingUsersData.find((user : User) => {
-          return user.username === data.username && user.password === data.password && user.usertype === 'patron';
+          return user.username === data.username && user.password === data.password ;
         });
         if(checkUser){
             console.log(this.loginForm.value.username)
@@ -51,7 +51,7 @@ export class PatronloginComponent {
             this.router.navigate(['/viewbook'], {queryParams: { userType:'patron', username : this.loginForm.value.username }})
         }
         else{
-          alert("You are registred yet as patron ! Register now..")
+          alert("You are not registred yet as patron ! Please consult librarian for Registration..")
           // this.loginForm.reset()
         }
         

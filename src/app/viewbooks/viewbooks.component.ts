@@ -1,5 +1,4 @@
 import { Component , OnInit} from '@angular/core';
-import { BookServiceService } from '../book-service.service';
 import { AvailableBooks } from '../available-books';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -61,14 +60,21 @@ export class ViewbooksComponent implements OnInit {
   paramsObject : any;
 
   availableBooksList: AvailableBooks[];
+
   filteredBookList: AvailableBooks[] = [];
 
-  constructor(private _bookService: BookServiceService,private router: Router,private route: ActivatedRoute) {
-    this.availableBooksList = this._bookService.availableBooksList;
-    this.filteredBookList = this._bookService.availableBooksList;
-  }
+  constructor(private router: Router,private route: ActivatedRoute) {
+      const booksString = localStorage.getItem('books');
+      const existingBooks = booksString ? JSON.parse(booksString) : [];
+      this.availableBooksList = existingBooks;
+    // this.availableBooksList = this._bookService.availableBooksList;
+
+    console.log('Available Books:', this.availableBooksList);
+      this.filteredBookList = this.availableBooksList;
+  } 
 
   filterResults(filterValue: string) {
+    console.log('Filter Value:', filterValue);
     if (!filterValue) {
       this.filteredBookList = this.availableBooksList;
     }
@@ -89,6 +95,9 @@ export class ViewbooksComponent implements OnInit {
   // }
 
   ngOnInit(): void {
+    
+
+
     this.route.queryParamMap.subscribe((params) => {
       this.paramsObject = {};
       params.keys.forEach(key => {

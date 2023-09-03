@@ -7,20 +7,24 @@ import { AllPatrons } from './all-patrons';
 export class PatronService {
   patronList : AllPatrons[] = [
     {
+  
+      password: 'string',
+      email:'string',
+      number:7,
       id : 1,
-      pname : "Rose",
+      username : "Rose",
       borrowedBooks : [77,90]
     },
-    {
-      id : 2,
-      pname : "Lotus",
-      borrowedBooks : []
-    },
-    {
-      id : 3,
-      pname : "Lilly",
-      borrowedBooks : [20]
-    },
+    // {
+    //   id : 2,
+    //   pname : "Lotus",
+    //   borrowedBooks : []
+    // },
+    // {
+    //   id : 3,
+    //   pname : "Lilly",
+    //   borrowedBooks : [20]
+    // },
   ]
 
 

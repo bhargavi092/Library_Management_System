@@ -1,5 +1,8 @@
 export interface AllPatrons {
     id : number,
-    pname : string,
+    username : string,
+    password: string,
+    email:string,
+    number:number,
     borrowedBooks : number[]
 }

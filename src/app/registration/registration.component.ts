@@ -23,7 +23,7 @@ export class RegistrationComponent {
           password : ['',[Validators.required,Validators.minLength(8)]],
           email : ['',[Validators.required, Validators.email]],
           number : ['',[Validators.required, Validators.pattern('^[0-9]+$')]],
-          usertype: ['', Validators.required]
+          // usertype: ['', Validators.required]
         }
       )
     }
@@ -40,7 +40,7 @@ export class RegistrationComponent {
           password: this.registerForm.value.password,
           email: this.registerForm.value.email,
           number: this.registerForm.value.number,
-          usertype: this.registerForm.value.usertype
+          // usertype: this.registerForm.value.usertype
         };
 
         const registeredUsersString = localStorage.getItem('registrationData');
