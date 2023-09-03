@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PatronService } from './patron.service';
 import { LoginComponent } from './login/login.component';
 import { PatronloginComponent } from './patronlogin/patronlogin.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { PatronloginComponent } from './patronlogin/patronlogin.component';
     ReturnbookComponent,
     LoginComponent,
     PatronloginComponent,
+    RegistrationComponent,
 
   ],
   imports: [

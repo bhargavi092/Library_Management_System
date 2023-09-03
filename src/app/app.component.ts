@@ -38,6 +38,8 @@ export class AppComponent {
       console.log(this.patronObject.username)
       this.router.navigate(['/viewbook'], {queryParams: { userType:'patron' , username:this.patronObject.username}})
     }
+
+    // this.router.navigateByUrl('/registration')
   
   }
   

@@ -97,8 +97,6 @@ export class ViewbooksComponent implements OnInit {
       console.log(this.paramsObject);
       this.userType = this.paramsObject.userType;
       this.username = this.paramsObject.username;
-  
-
     });
   }
 

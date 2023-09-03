@@ -2,6 +2,12 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder,NgForm,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+interface User {
+  username: string;
+  password: string;
+  usertype: string;
+}
+
 @Component({
   selector: 'app-patronlogin',
   templateUrl: './patronlogin.component.html',
@@ -30,13 +36,25 @@ export class PatronloginComponent {
           password: this.loginForm.value.password
         };
       
-        
-        console.log(this.loginForm.value.username)
-        localStorage.setItem('patron',JSON.stringify(data));
-        
-        // this.router.navigateByUrl(`/viewbook?userType=${this.loginForm.value.userType}&&`);
-        this.router.navigate(['/viewbook'], {queryParams: { userType:'patron', username : this.loginForm.value.username }})
+        const registeredUsersString = localStorage.getItem('registrationData');
+        const existingUsersData = registeredUsersString ? JSON.parse(registeredUsersString) : [];
 
+        const checkUser = existingUsersData.find((user : User) => {
+          return user.username === data.username && user.password === data.password && user.usertype === 'patron';
+        });
+        if(checkUser){
+            console.log(this.loginForm.value.username)
+            localStorage.setItem('patron',JSON.stringify(data));
+        
+            // this.router.navigateByUrl('/viewbook');
+            // this.router.navigateByUrl(`/viewbook?userType=${this.loginForm.value.userType}`);
+            this.router.navigate(['/viewbook'], {queryParams: { userType:'patron', username : this.loginForm.value.username }})
+        }
+        else{
+          alert("You are registred yet as patron ! Register now..")
+          // this.loginForm.reset()
+        }
+        
       }
     }
 }

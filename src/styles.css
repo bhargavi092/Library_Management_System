@@ -48,6 +48,10 @@ main{
     display: block;
     margin: 30% 0%;
 }
+.side-nav a:hover{
+    text-shadow: 1px 1px 5px ;
+    font-size: 1.2rem;
+}
 .content{
     /* border: 2px solid yellow; */
     height: 100%;

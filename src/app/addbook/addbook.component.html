@@ -24,7 +24,6 @@
                 <div class="form_bg">
                     <h4>Add Book</h4>
                     <form [formGroup]="addBookForm" (ngSubmit)="addBook()">
-        
                         <div class="form-group">
                             <input type="number" formControlName="isbn" placeholder="ISBN number">
                             <span  *ngIf="addBookForm.controls['isbn'].hasError('required') && addBookForm.controls['isbn'].touched" class="error">Book ISBN  required and MaxLength is 13 only!</span>
@@ -49,8 +48,7 @@
                           <button class="btn btn-primary" [routerLink]="['/viewbook']" [queryParams]="{ userType: userType ,username:username }">View Books</button>
                         </div>
                     </form>
-                </div>
-                
+                </div>    
             </div>
             <div class="img">
               <img src="/assets/book.jpg">

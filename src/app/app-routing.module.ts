@@ -8,6 +8,7 @@ import { ReturnbookComponent } from './returnbook/returnbook.component';
 import { ViewpatronComponent } from './viewpatron/viewpatron.component';
 import { LoginComponent } from './login/login.component';
 import { PatronloginComponent } from './patronlogin/patronlogin.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 const routes: Routes = [
  
@@ -16,6 +17,9 @@ const routes: Routes = [
   },
   {
     path:'viewbook', component:ViewbooksComponent
+  },
+  {
+    path:'registration', component:RegistrationComponent
   },
   {
     path:'patronlogin', component:PatronloginComponent
