@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder,NgForm,Validators } from '@angular/forms';
 import { PatronService } from '../patron.service';
-import { BookServiceService } from '../book-service.service';
+// import { BookServiceService } from '../book-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AvailableBooks } from '../available-books';
+import { AllPatrons } from '../all-patrons';
 
 @Component({
   selector: 'app-returnbook',
@@ -20,10 +22,9 @@ export class ReturnbookComponent {
   userType: string ='';
   username: string = '';
   paramsObject : any;
-  // borrowedBooks : string[]=[""];
 
 
-  constructor(private formBuilder : FormBuilder , private patronService : PatronService, private bookService : BookServiceService, private router: Router,private route: ActivatedRoute){
+  constructor(private formBuilder : FormBuilder , private patronService : PatronService, private router: Router,private route: ActivatedRoute){
     this.returnForm = formBuilder.group({
       pid : ['',Validators.required],
       isbn : ['',Validators.required],
@@ -31,31 +32,51 @@ export class ReturnbookComponent {
   }
 
   returnBook(){
-    if(this.returnForm.valid){
-      console.log(this.returnForm.value);
+
+    if (this.returnForm.valid) {
       const patronId = this.returnForm.controls['pid'].value;
       const bookISBN = this.returnForm.controls['isbn'].value;
-      console.log(bookISBN);
-      console.log(patronId);
-      console.log(this.patronService.returnBook(patronId,bookISBN) + "  returnBook method result")
 
-      if( this.patronService.returnBook(patronId,bookISBN)){
-        
-          const increaseQuantity = this.bookService.increaseBookQuantity(bookISBN);
-          if(increaseQuantity){
-            this.patronService.removeBorrowedBook(patronId,bookISBN);
-            alert(`Book with isbn number ${bookISBN} returned successfully`);
-          }
-          else{
-            alert(`Book with isbn number ${bookISBN} not returned successfully`);
-          }
-        
+      const patronDataString = localStorage.getItem('PatronRegistrationData');
+      const patronData = patronDataString ? JSON.parse(patronDataString) : [];
+
+      const patron = patronData.find((p: AllPatrons ) => p.id === patronId);
+
+      if (!patron) {
+        alert(`Patron with ID ${patronId} does not exist.`);
+        return;
       }
-      else{
-        alert(`Book with isbn number ${bookISBN} not in the borrowed list `);
+
+      if (!patron.borrowBooks.includes(bookISBN) ) {
+        alert(`Book with ISBN ${bookISBN} is not in the borrowed list.`);
+        return;
       }
-      this.returnForm.reset()
+
+      const booksString = localStorage.getItem('books');
+      const books = booksString ? JSON.parse(booksString) : [];
+
+      const book = books.find((b:AvailableBooks) => b.isbn === bookISBN);
+
+      if (!book) {
+        alert(`Book with ISBN ${bookISBN} does not exist.`);
+        return;
+      }
+
+      book.quantity++;
+
+      const bookIndex = patron.borrowBooks.indexOf(bookISBN);
+      console.log(bookIndex)
+      if (bookIndex !== -1) {
+        patron.borrowBooks.splice(bookIndex, 1);
+      }
+
+      localStorage.setItem('books', JSON.stringify(books));
+      localStorage.setItem('PatronRegistrationData', JSON.stringify(patronData));
+
+      alert(`Book with ISBN ${bookISBN} returned successfully.`);
+      this.returnForm.reset();
     }
+
     this.router.navigate(['/viewbook'], {queryParams: { userType:this.userType, username : this.username }})
   }
 

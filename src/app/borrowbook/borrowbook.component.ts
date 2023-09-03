@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder,NgForm,Validators } from '@angular/forms';
 import { AllPatrons } from '../all-patrons';
-import { PatronService } from '../patron.service';
-import { BookServiceService } from '../book-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AvailableBooks } from '../available-books';
+
 
 @Component({
   selector: 'app-borrowbook',
@@ -25,7 +25,7 @@ export class BorrowbookComponent {
   // borrowedBooks : string[]=[""];
 
 
-  constructor(private formBuilder : FormBuilder , private patronService : PatronService, private bookService : BookServiceService , private router: Router,private route: ActivatedRoute){
+  constructor(private formBuilder : FormBuilder , private router: Router,private route: ActivatedRoute){
     this.borrowForm = formBuilder.group({
       pid : ['',Validators.required],
       isbn : ['',Validators.required],
@@ -33,26 +33,46 @@ export class BorrowbookComponent {
   }
 
   borrowBook(){
-    if(this.borrowForm.valid){
-      console.log(this.borrowForm.value);
+
+    if (this.borrowForm.valid) {
       const patronId = this.borrowForm.controls['pid'].value;
       const bookISBN = this.borrowForm.controls['isbn'].value;
-      console.log(bookISBN);
-      console.log(patronId);
+  
+      const patronDataString = localStorage.getItem('PatronRegistrationData');
+      const patronData = patronDataString ? JSON.parse(patronDataString) : [];
 
-      if( this.patronService.borrowPatron(patronId)){
-        if(this.bookService.borrowBook(bookISBN)){
-          const reduceQuantity = this.bookService.reduceBookQuantity(bookISBN);
-          if(reduceQuantity){
-            this.patronService.addBorrowedBook(patronId,bookISBN);
-            alert(`Book with isbn number ${bookISBN} borrowed successfully`);
-          }
-          else{
-            alert(`Copies of Book with isbn number ${bookISBN} not available`);
-          }
-        }
+      const patron = patronData.find((p:AllPatrons) => p.id === patronId);
+  
+      if (!patron) {
+        alert(`Patron with ID ${patronId} does not exist.`);
+        return;
       }
-      this.borrowForm.reset()
+  
+      const booksString = localStorage.getItem('books');
+      const books = booksString ? JSON.parse(booksString) : [];
+
+      const book = books.find((book:AvailableBooks) => book.isbn === bookISBN);
+  
+      if (!book) {
+        alert(`Book with ISBN ${bookISBN} does not exist.`);
+        return;
+      }
+  
+      if (book.quantity <= 0) {
+        alert(`Book with ISBN ${bookISBN} is not available.`);
+        return;
+      }
+        book.quantity--;
+  
+      patron.borrowBooks.push(bookISBN);
+
+  
+      localStorage.setItem('books', JSON.stringify(books));
+      localStorage.setItem('PatronRegistrationData', JSON.stringify(patronData));
+  
+      alert(`Book with ISBN ${bookISBN} borrowed successfully.`);
+      this.borrowForm.reset();
+
       this.router.navigate(['/viewbook'], {queryParams: { userType:this.userType, username : this.username }})
     }
     

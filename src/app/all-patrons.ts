@@ -4,5 +4,5 @@ export interface AllPatrons {
     password: string,
     email:string,
     number:number,
-    borrowedBooks : number[]
+    borrowBooks : number[]
 }

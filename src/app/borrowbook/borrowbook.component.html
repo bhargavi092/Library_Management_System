@@ -30,7 +30,7 @@
                             <span  *ngIf="borrowForm.controls['pid'].hasError('required') && borrowForm.controls['pid'].touched" class="error">Patron id is required!</span>
                         </div>
                         <div class="form-group">
-                            <input type="number" formControlName="isbn" placeholder="Book Id">
+                            <input type="number" formControlName="isbn" placeholder="Book ISBN">
                             <span  *ngIf="borrowForm.controls['isbn'].hasError('required') && borrowForm.controls['isbn'].touched" class="error">Book ISBN is required!</span>
                         </div>
                         <br>

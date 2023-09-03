@@ -1,7 +1,7 @@
 import { Component , ViewEncapsulation} from '@angular/core';
 import { FormControl, FormGroup, FormBuilder,NgForm,Validators } from '@angular/forms';
-import { BookServiceService } from '../book-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AvailableBooks } from '../available-books';
 
 
 @Component({
@@ -26,7 +26,7 @@ export class AddbookComponent {
     quantity : number=0;
 
 
-    constructor(private formBuilder : FormBuilder , private bookService : BookServiceService, private router:Router,private route: ActivatedRoute){
+    constructor(private formBuilder : FormBuilder ,  private router:Router,private route: ActivatedRoute){
       this.addBookForm = formBuilder.group({
         // id : ['',Validators.required],
         isbn : ['',[Validators.required,Validators.maxLength(13)]],
@@ -40,16 +40,17 @@ export class AddbookComponent {
       if(this.addBookForm.valid){
         console.log(this.addBookForm.value);
         
-        // this.bookService.addBook(newBook)
         const booksString = localStorage.getItem('books');
         const existingBooks = booksString ? JSON.parse(booksString) : [];
         const nextId = existingBooks.length;
+        const newBook = this.addBookForm.value;
 
-        const newBook = {
-          id: nextId + 1,
-          ...this.addBookForm.value
-        }
-        
+      const isDuplicateISBN = existingBooks.filter((book: AvailableBooks) => book.isbn === newBook.isbn);
+
+      if (isDuplicateISBN) {
+        alert(`Book with ISBN ${newBook.isbn} already exists. ISBN numbers must be unique.`);
+      } else{
+        newBook.id = nextId + 1;
         existingBooks.push(newBook);
 
         localStorage.setItem('books', JSON.stringify(existingBooks));
@@ -58,6 +59,9 @@ export class AddbookComponent {
         alert("Book added successfully")
         // this.router.navigateByUrl('/viewbook');
         this.router.navigate(['/viewbook'], {queryParams: { userType:this.userType, username : this.username }})
+      }
+
+      
 
       }
       

@@ -13,7 +13,7 @@ export class PatronService {
       number:7,
       id : 1,
       username : "Rose",
-      borrowedBooks : [77,90]
+      borrowBooks : [77,90]
     },
     // {
     //   id : 2,
@@ -52,14 +52,14 @@ export class PatronService {
   addBorrowedBook(pid:number , isbn:number){
       const patron = this.patronList.find(p => p.id === pid);
       if(patron){
-        patron.borrowedBooks.push(isbn);
-        console.log(patron.borrowedBooks);
+        patron.borrowBooks.push(isbn);
+        console.log(patron.borrowBooks);
       }
   }
 
   returnBook(pid:number , isbn:number):boolean{
     const patronCheck = this.patronList.find(patron => patron.id ==pid);
-    if(patronCheck && patronCheck.borrowedBooks.includes(isbn)){
+    if(patronCheck && patronCheck.borrowBooks.includes(isbn)){
       return true;
     }
     return false;
@@ -67,8 +67,8 @@ export class PatronService {
   removeBorrowedBook(pid:number , isbn:number){
     const patron = this.patronList.find(p => p.id === pid);
     if (patron) {
-      patron.borrowedBooks = patron.borrowedBooks.filter(b_isbn => b_isbn !== isbn);
-      console.log(patron.borrowedBooks);
+      patron.borrowBooks = patron.borrowBooks.filter(b_isbn => b_isbn !== isbn);
+      console.log(patron.borrowBooks);
     }
   }
   constructor() { }

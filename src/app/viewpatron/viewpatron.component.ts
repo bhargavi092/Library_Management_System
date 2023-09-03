@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-// import { PatronService } from '../patron.service';
+import { Component, OnInit  } from '@angular/core';
 import { AllPatrons } from '../all-patrons';
 import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-viewpatron',
@@ -42,7 +42,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     <table  class="patrons-table">
       <tr><th>ID</th><th>Name</th><th>Borrowed Books ISBN numbers</th></tr>
       <tr *ngFor="let patron of filteredPatronList" >
-      <td>{{patron.id}}</td><td>{{patron.username}}</td><td>{{patron.borrowedBooks}}</td>
+      <td>{{patron.id}}</td><td>{{patron.username}}</td><td>{{patron.borrowBooks}}</td>
       </tr>
     </table>
   </div>
@@ -61,7 +61,7 @@ export class ViewpatronComponent implements OnInit{
   username: string = '';
   paramsObject : any;
 
-
+  
   patronList : AllPatrons[];
   filteredPatronList : AllPatrons[] =[];
   constructor( private router: Router,private route: ActivatedRoute){
@@ -71,8 +71,9 @@ export class ViewpatronComponent implements OnInit{
       this.patronList = existingPatrons;
 
     console.log(this.patronList)
-    // this.patronList = this._patronService.patronList;
+    // this.patronList = this._patronService.patronList; 
     this.filteredPatronList = this.patronList;
+    console.log(this.filteredPatronList)
 
   }
 
@@ -90,13 +91,7 @@ export class ViewpatronComponent implements OnInit{
     this.showLogoutDropdown = !this.showLogoutDropdown;
   }
 
-  // ngOnInit(): void {
-    // this.route.queryParams.subscribe(params => {
-    //   console.log(params);
-    //   this.userType = params['userType'];
-      
-    // });
-  // }
+ 
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((params) => {
@@ -115,17 +110,10 @@ export class ViewpatronComponent implements OnInit{
     return this.userType === 'librarian';
   }
 
+
+
+
   logout() {
-    
-    // const key  = this.paramsObject.userType;
-    // const storedData = JSON.parse(localStorage.getItem(key) || '[]') || [];
-
-    // const indexToRemove = storedData.findIndex(item => item.username == this.paramsObject.username);
-
-    // if(indexToRemove != -1){
-    //   storedData.splice(indexToRemove,1);
-    //   localStorage.setItem(key,JSON.parse(storedData))
-    // }
 
     localStorage.removeItem(this.userType)
 

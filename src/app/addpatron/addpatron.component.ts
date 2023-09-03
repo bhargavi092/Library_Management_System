@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder,NgForm,Validators } from '@angular/forms';
 import { AllPatrons } from '../all-patrons';
-import { PatronService } from '../patron.service';
+// import { PatronService } from '../patron.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -24,7 +24,7 @@ export class AddpatronComponent {
   quantity : number=0;
 
 
-  constructor(private formBuilder : FormBuilder , private patronService : PatronService, private router : Router,private route: ActivatedRoute){
+  constructor(private formBuilder : FormBuilder ,  private router : Router,private route: ActivatedRoute){
     this.addPatronForm = formBuilder.group({
       // id : ['',Validators.required],
       pname : ['',Validators.required],

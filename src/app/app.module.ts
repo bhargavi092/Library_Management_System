@@ -6,12 +6,12 @@ import { AppComponent } from './app.component';
 import { ViewbooksComponent } from './viewbooks/viewbooks.component';
 import { AddbookComponent } from './addbook/addbook.component';
 import { ViewpatronComponent } from './viewpatron/viewpatron.component';
-import { AddpatronComponent } from './addpatron/addpatron.component';
+// import { AddpatronComponent } from './addpatron/addpatron.component';
 import { BorrowbookComponent } from './borrowbook/borrowbook.component';
 import { ReturnbookComponent } from './returnbook/returnbook.component';
-import { BookServiceService } from './book-service.service';
+// import { BookServiceService } from './book-service.service';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PatronService } from './patron.service';
+// import { PatronService } from './patron.service';
 import { LoginComponent } from './login/login.component';
 import { PatronloginComponent } from './patronlogin/patronlogin.component';
 import { RegistrationComponent } from './registration/registration.component';
@@ -23,7 +23,7 @@ import { PatronRegistrationComponent } from './patron-registration/patron-regist
     ViewbooksComponent,
     AddbookComponent,
     ViewpatronComponent,
-    AddpatronComponent,
+    // AddpatronComponent,
     BorrowbookComponent,
     ReturnbookComponent,
     LoginComponent,
@@ -37,7 +37,7 @@ import { PatronRegistrationComponent } from './patron-registration/patron-regist
     AppRoutingModule,
     ReactiveFormsModule,
   ],
-  providers: [BookServiceService,PatronService],
+  // providers: [BookServiceService,PatronService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
