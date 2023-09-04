@@ -79,6 +79,9 @@ export class EditProfileComponent {
         const userToUpdateIndex = userData.findIndex((user: any) => user.username === this.uname);
   
         if (userToUpdateIndex !== -1) {
+
+          updatedUserData.id = userData[userToUpdateIndex].id;
+          updatedUserData.borrowBooks = userData[userToUpdateIndex].borrowBooks;
           userData[userToUpdateIndex] = updatedUserData;
   
           localStorage.setItem(userKey, JSON.stringify(userData));
@@ -88,7 +91,7 @@ export class EditProfileComponent {
       this.router.navigate(['/viewbook'], {
         relativeTo: this.route,
         queryParams: { username: updatedUserData.username },
-        queryParamsHandling: 'merge' // This preserves existing query parameters
+        queryParamsHandling: 'merge' 
       });
       // this.router.navigate(['/viewbook'], { queryParams: { userType: this.userType, username: this.uname } });
     }
