@@ -85,13 +85,6 @@ export class ViewpatronComponent implements OnInit{
       if (this.userType === 'librarian') {
         this.filteredPatronList = this.patronList;
       }
-      //  else if (this.userType === 'patron') {
-      //   const patronDataString = localStorage.getItem('PatronRegistrationData');
-      //   const patronData = patronDataString ? JSON.parse(patronDataString) : [];
-      //   const currentPatron = patronData.find((patron: AllPatrons) => patron.username === this.username);
-        
-      //   this.filteredPatronList = currentPatron ? [currentPatron] : []
-      // }
 
     } 
     else{
