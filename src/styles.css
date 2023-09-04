@@ -64,7 +64,7 @@ main{
     position: absolute;
     top: 10%;
     right: 4%;
-    width: 7%;
+    width: 8%;
     display: none;
     border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -73,10 +73,13 @@ main{
     -o-border-radius: 5px;
     display: block; 
     text-align: center;
+    z-index: 2;
+
 }
 .logout-dropdown a {
     display: block;
     padding: 5% 8%;
     text-decoration: none;
     cursor: pointer;
+    border-bottom: 1px solid rgb(7, 73, 139);
 }

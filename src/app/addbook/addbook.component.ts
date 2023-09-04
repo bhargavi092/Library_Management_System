@@ -45,23 +45,32 @@ export class AddbookComponent {
         const nextId = existingBooks.length;
         const newBook = this.addBookForm.value;
 
-      const isDuplicateISBN = existingBooks.filter((book: AvailableBooks) => book.isbn === newBook.isbn);
+        const existingBookIndex = existingBooks.findIndex(
+          (book: AvailableBooks) =>
+            book.isbn === newBook.isbn
+        );
+        if (existingBookIndex !== -1) {
+          const existingBook = existingBooks[existingBookIndex];
+          
+          if (existingBook.title !== newBook.title || existingBook.author !== newBook.author) {
+            alert(`Book with ISBN ${newBook.isbn} already exists. ISBN numbers must be unique.`);
+          }
+          else {
+            existingBook.quantity += newBook.quantity;
+            alert('Book quantity increased successfully.');
+          }
+        } 
+        else {
+          newBook.id = nextId + 1;
+          existingBooks.push(newBook);
+          alert('Book added successfully.');
+        }
 
-      if (isDuplicateISBN) {
-        alert(`Book with ISBN ${newBook.isbn} already exists. ISBN numbers must be unique.`);
-      } else{
-        newBook.id = nextId + 1;
-        existingBooks.push(newBook);
+      localStorage.setItem('books', JSON.stringify(existingBooks));
 
-        localStorage.setItem('books', JSON.stringify(existingBooks));
-
-        this.addBookForm.reset()
-        alert("Book added successfully")
-        // this.router.navigateByUrl('/viewbook');
-        this.router.navigate(['/viewbook'], {queryParams: { userType:this.userType, username : this.username }})
-      }
-
+      this.addBookForm.reset()
       
+      this.router.navigate(['/viewbook'], {queryParams: { userType:this.userType, username : this.username }})
 
       }
       

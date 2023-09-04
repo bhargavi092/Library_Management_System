@@ -51,7 +51,7 @@ export class PatronloginComponent {
             this.router.navigate(['/viewbook'], {queryParams: { userType:'patron', username : this.loginForm.value.username }})
         }
         else{
-          alert("You are not registred yet as patron ! Please consult librarian for Registration..")
+          alert("You are not registred  as patron yet! Please consult librarian for Registration.. (Or) invalid username or password")
           // this.loginForm.reset()
         }
         

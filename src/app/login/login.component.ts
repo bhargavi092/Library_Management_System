@@ -54,7 +54,7 @@ export class LoginComponent {
             this.router.navigate(['/viewbook'], {queryParams: { userType:'librarian', username : this.loginForm.value.username }})
         }
         else{
-          alert("You are registred yet as librarian ! Register now..")
+          alert("You are not registred  as librarian yet! Register now.. (Or) invalid username or password")
           // this.loginForm.reset()
         }
         

@@ -22,7 +22,7 @@ export class AppComponent {
     console.log(this.librarianData)
     console.log(this.patronData)
 
-    // localStorage.clear()
+    localStorage.clear()
 
 
     if(this.librarianData === null && this.patronData === null){

@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { PatronloginComponent } from './patronlogin/patronlogin.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { PatronRegistrationComponent } from './patron-registration/patron-registration.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 const routes: Routes = [
  
@@ -26,7 +27,10 @@ const routes: Routes = [
     path:'patron-registration', component:PatronRegistrationComponent
   },
   {
-    path:'patronlogin', component:PatronloginComponent
+    path:'patronlogin', component:PatronloginComponent  
+  },
+  {
+    path:'editprofile', component:EditProfileComponent
   },
   {
     path:'addbook', component:AddbookComponent

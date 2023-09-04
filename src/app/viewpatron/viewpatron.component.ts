@@ -17,6 +17,8 @@ import { ActivatedRoute, Router } from '@angular/router';
      <span>{{username}}</span><i class='fa fa-user-circle userIcon' (click)="toggleLogoutDropdown()"></i>
       <div class="logout-dropdown" *ngIf="showLogoutDropdown">
         <a (click)="logout()">Logout</a>
+        <a [routerLink]="['/editprofile']" [queryParams]="{ userType: userType , username:username}">Edit Profile</a>
+
       </div>
      </div>
    </nav>
@@ -28,8 +30,8 @@ import { ActivatedRoute, Router } from '@angular/router';
      </div>
      <div class="content">
   <div class="viewpatrons-container">
-  <div class="viewpatrons-heading"><h3>All Patrons</h3></div>
-  <div class="search">
+  <div class="viewpatrons-heading"><h3>Patron Details</h3></div>
+  <div class="search" *ngIf="userType === 'librarian'">
     <div class="searchField">
         <label>Search : </label> <input type="text" placeholder="Patron by id.." #filterpatron >
     </div> 
@@ -67,20 +69,30 @@ export class ViewpatronComponent implements OnInit{
   constructor( private router: Router,private route: ActivatedRoute){
 
     const patronString = localStorage.getItem('PatronRegistrationData');
-      const existingPatrons = patronString ? JSON.parse(patronString) : [];
-      this.patronList = existingPatrons;
+    const existingPatrons = patronString ? JSON.parse(patronString) : [];
+    this.patronList = existingPatrons;
 
-    console.log(this.patronList)
-    // this.patronList = this._patronService.patronList; 
-    this.filteredPatronList = this.patronList;
-    console.log(this.filteredPatronList)
+    console.log("patronlist ",this.patronList)
+    // this.filteredPatronList = this.patronList;
+    // console.log(this.filteredPatronList)
+   
 
   }
 
   filterResults(filterValue: string) {
     
     if (!filterValue) {
-      this.filteredPatronList = this.patronList; 
+      if (this.userType === 'librarian') {
+        this.filteredPatronList = this.patronList;
+      }
+      //  else if (this.userType === 'patron') {
+      //   const patronDataString = localStorage.getItem('PatronRegistrationData');
+      //   const patronData = patronDataString ? JSON.parse(patronDataString) : [];
+      //   const currentPatron = patronData.find((patron: AllPatrons) => patron.username === this.username);
+        
+      //   this.filteredPatronList = currentPatron ? [currentPatron] : []
+      // }
+
     } 
     else{
         this.filteredPatronList = this.patronList.filter(  patron => patron.id.toString() === filterValue)
@@ -102,6 +114,19 @@ export class ViewpatronComponent implements OnInit{
       console.log(this.paramsObject);
       this.userType = this.paramsObject.userType;
       this.username = this.paramsObject.username;
+
+      if (this.userType === 'librarian') {
+        this.filteredPatronList = this.patronList;
+  
+      } 
+      else if (this.userType === 'patron') {
+        console.log("patron list check," , this.patronList)
+        console.log("username", this.username)
+        const currentPatron = this.patronList.find((patron: AllPatrons) => patron.username === this.username);
+        console.log("current patron",currentPatron)
+        this.filteredPatronList = currentPatron ? [currentPatron] : [];
+      }
+      console.log("filtered patrn",this.filteredPatronList);
       
     });
   }
@@ -109,9 +134,6 @@ export class ViewpatronComponent implements OnInit{
   isAddPatronDisplay(): boolean {
     return this.userType === 'librarian';
   }
-
-
-
 
   logout() {
 

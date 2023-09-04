@@ -15,6 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
       <span>{{username}}</span><i class='fa fa-user-circle userIcon' (click)="toggleLogoutDropdown()"></i>
       <div class="logout-dropdown" *ngIf="showLogoutDropdown">
         <a (click)="logout()">Logout</a>
+        <a [routerLink]="['/editprofile']" [queryParams]="{ userType: userType , username:username}">Edit Profile</a>
       </div>
     </div>
   </nav>
@@ -95,9 +96,6 @@ export class ViewbooksComponent implements OnInit {
   // }
 
   ngOnInit(): void {
-    
-
-
     this.route.queryParamMap.subscribe((params) => {
       this.paramsObject = {};
       params.keys.forEach(key => {
